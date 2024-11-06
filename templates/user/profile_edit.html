@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6">
+            <h3 class="display-4">Profile</h3>
+            <form action="" method="get">
+                {% csrf_token %}
+                {% render_field form.name class='form-control' placeholder='Full Name' %}
+                {% render_field form.location class='form-control mt-2' placeholder='Your Location' %}
+                {% render_field form.birth_date class='form-control mt-2' placeholder='Your birth date' %}
+                {% render_field form.bio class='form-control mt-2' placeholder='Peronal Bio' %}
+                {% render_field form.image class='form-control mt-2' placeholder='Profile Image' %}
+                <button type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

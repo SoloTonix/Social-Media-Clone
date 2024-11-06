@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <a href="{% url 'Home' %}" class="btn btn-light">Back To Feed</a>
+        </div>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6 card shadow-sm">
+            <img src="{{profile.image.url}}" class="rounded-circle mt-3 m-3" width="120" height="120">
+            {% if profile.name %}
+            <p class=""><i class="fa fa-pencil mx-2"></i>Name:<span class="ms-3">{{profile.name}}</span></p>
+            {% else %}
+            <p class=""><i class="fa fa-user mx-2"></i>Name:<strong class="ms-3">{{profile.user.username}}</strong></p>
+            {% endif %}
+
+            {% if profile.location %}
+            <p class="">
+                <i class="fa fa-compass mx-2"></i>Location:<span class="ms-3">{{profile.location}}</span>
+            </p>
+            {% endif %}
+
+            {% if profile.birth_date %}
+            <p class=" "><i class="fa fa-calendar mx-2"></i>Birth Date:<span class="ms-3">{{profile.birth_date}}</span></p>
+            {% endif %}
+
+            {% if profile.bio %}
+            <p class=""><i class="fa fa-comment mx-2"></i>Bio:<span class="ms-3">{{profile.bio}}</span></p>
+            {% endif %}
+
+            <p><i class="fa fa-users mx-2"></i>Followers: <span class="ms-3">{{followers}}</span></p>
+            
+        </div>
+
+  
+        
+        
+    </div>
+
+
+    <div class="row mt-2 justify-content-end">
+        <div class="col-md-5 d-flex gap-2">
+            {% if profile.user == request.user %}
+            <a href="{% url 'ProfileEdit' profile.pk %}" class="btn btn-outline-dark" style="text-decoration: none;">Edit <i class="fa fa-pen"></i></a>
+            {% else %}
+            <a href="{% url 'FollowUser' profile.pk %}" class="btn btn-outline-danger" style="text-decoration: none;">follow</a>
+            <a href="{% url 'UnfollowUser' profile.pk %}" class="btn btn-outline-danger" style="text-decoration: none;">unfollow</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+    
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6 text-center">
+            <h3 class="text-decoration-underline">Your Posts</h3>
+        </div>
+    </div>
+
+    {% for post in posts %}
+    <div class="row  mt-5 justify-content-center">
+        <div class="col-md-5 position-relative">
+            <p class="text-muted"><i class="fa-solid fa-clock px-2"></i>{{post.created_on|timesince}}</p>
+            <p>{{post.body}}</p>
+            <a  href="{% url 'Post' post.pk %}" class="stretched-link"></a>
+            <hr>
+        </div>
+    </div>
+    {% endfor %}
+    
+
+</div>
+{% endblock %}

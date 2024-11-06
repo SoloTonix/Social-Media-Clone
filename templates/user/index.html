@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load allauth %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-9 text-center">
+            <h2 class="display-2">Connect To the world with <span class="text-danger">ConneCt</span></h2>
+            <p class="p-2">Follow people who interest, and stay connected...</p>
+            <div class="justify-content-center pt-2">
+                <a class=" btn btn-outline-danger" href="{% url 'SignUp' %}">Sign Up</a>
+                <a class="btn btn-danger mr-2" href="{% url 'Login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

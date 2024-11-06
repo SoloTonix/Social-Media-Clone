@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-5">
+            <a class="btn btn-light" href="{% url 'Post' post.pk  %}">Back To Post</a>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-7">
+            <h3 class="display-5">Do you want to really want to delete this post?</h3>
+            <p>this is to notify you that this action can't be undone, click the button below to continue... </p>
+            <div class="d-grid">
+                <a href="{% url 'PostDelete' post.pk %}" class="text-decoration-none text-dark"><button class="btn-block btn-outline-danger ">Yes, Delete</button></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

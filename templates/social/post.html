@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <a class="btn btn-light" href="{% url 'Home' %}">Back to Feed</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <div>
+                <div class="border-bottom d-flex justify-content-between align-items-center mt-3">
+                    <div class="d-flex gap-3 align-items-center">
+                        <strong class="text-danger">
+                            <a href="{% url 'Profile' post.author.pk %}" style="text-decoration: none;" class="text-danger mt-3">{{post.author.username}}</a>
+                        </strong>
+                        <i class="fa fa-clock text-muted" style="color:#333;"></i>
+                        <span class="text-muted"> {{post.created_on|timesince}}</span>
+                    </div>
+                    
+                    
+                    {% if request.user == post.author %}
+                    <div>
+                        <a href="{% url 'PrePostDelete' post.pk %}" style="color: #333" class="mx-3 text-muted"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'PostEdit' post.pk %}" style="color:#333"><i class="fa-solid fa-pen text-muted"></i></a>
+                    </div>
+
+                    {% endif %}
+                   
+                </div>
+                <p class="py-3 mt-2">{{post.body}}</p>
+            </div>
+
+          
+            <div> 
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% render_field form.body class='form-control'  placeholder='Share feelings here...' %}
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn-block btn-outline-danger">Post</button>
+                    </div> 
+                </form>
+            </div>
+
+        </div>
+
+        {% if comments %}
+        <div class="col-md-4 ps-lg-5  ms-lg-5  ">
+            <h4 class="display-6 text-danger text-decoration-underline">Comments</h4>
+            {% for comment in comments %}
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="pt-2 ">
+                    <i class="fa fa-comment mx-3 text-danger"></i><strong class="text-danger">{{comment.author}}</strong>
+                    <span class="text-muted"> {{comment.created_on|timesince}}</span>
+                </p>
+                {% if request.user == comment.author %}
+                <a class="" href="{% url 'deleteComment' comment.pk %}"><i class="fa fa-multiply text-danger"></i></a>
+                {% endif %}
+            </div>
+            
+            <p class="ps-5">{{comment.body}}</p>
+            {% endfor %}
+        </div>
+        
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+{% endblock %}
