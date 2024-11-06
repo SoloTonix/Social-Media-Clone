@@ -106,7 +106,7 @@ def disLikePost(request, pk):
         post.dislikes.add(request.user)
     return redirect('Home')
 
-@login_required
+@login_required #z
 def SearchPost(request):
     search = request.GET['search']
     posts = Post.objects.filter(Q(author__username__icontains=search)|Q(body__icontains=search)|Q(created_on__icontains=search))
